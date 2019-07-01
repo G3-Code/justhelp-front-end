@@ -1,0 +1,121 @@
+.left-image-text {
+  width: 140%;
+  height: auto;
+  margin-left: 30%;
+}
+.right-section-container-login {
+  height: 25rem;
+  width: 70%;
+  background-color: black;
+  border-radius: 10px;
+}
+
+.right-section-register {
+  border: 1px solid white;
+  width: 70%;
+  border: 1px solid white;
+}
+
+.right-section-container-register {
+  width: 70%;
+  background-color: black;
+  height: 100%;
+  border-radius: 10px;
+}
+
+.login-filler {
+  height: 30px;
+}
+.form-text {
+  font-size: 1rem;
+  text-align: left;
+  padding-top: 7%;
+  padding-left: 10%;
+}
+.form-element {
+  text-align: left;
+  padding-left: 10%;
+}
+
+input[type="text"],
+textarea {
+  background-color: black;
+  border-radius: 5px;
+  border: 2px solid #1762a7;
+  width: 89%;
+  height: 2.5rem;
+  font-size: 0.9rem;
+  color: white;
+}
+
+input[type="text"]:focus,
+textarea {
+  outline: none;
+}
+input[type="password"]:focus,
+textarea {
+  outline: none;
+}
+
+input[type="password"],
+textarea {
+  border-radius: 5px;
+  border: 2px solid #1762a7;
+  width: 89%;
+  height: 2.5rem;
+  font-size: 0.9rem;
+  background-color: black;
+  color: white;
+}
+.form-element {
+  padding-left: 10%;
+  border-radius: 10px;
+}
+
+.login-btn {
+  width: 80%;
+  height: 2.5rem;
+  background: #1762a7;
+  border-radius: 10px;
+  text-align: center;
+  margin-top: 9%;
+  margin-bottom: 5%;
+  color: white;
+  font-size: 1rem;
+  margin-left: 3%;
+  border: none;
+  cursor: pointer;
+}
+.login-btn:hover {
+  background: white;
+  color: #1762a7;
+}
+.form-text-register {
+  font-size: 1rem;
+  text-align: left;
+  padding-top: 5%;
+  padding-left: 10%;
+}
+.link-register {
+  text-decoration: none;
+  color: white;
+  border-bottom: 2px solid #b41561;
+}
+.profile-btn {
+  width: 35%;
+  height: 3rem;
+  background: #1762a7;
+  border-radius: 10px;
+  text-align: center;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  color: white;
+  font-size: 1rem;
+  margin-left: 7%;
+  border: none;
+  cursor: pointer;
+}
+.profile-btn:hover {
+  background: white;
+  color: #1762a7;
+}

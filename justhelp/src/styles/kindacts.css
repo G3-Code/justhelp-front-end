@@ -1,0 +1,92 @@
+.left-section-container-kindact {
+  padding-top: 5%;
+  height: 15rem;
+  width: 110%;
+  background-color: black;
+  border-radius: 10px;
+}
+.kindacts-content-container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  border: 0px solid white;
+}
+
+.form-element-kindact input[type="text"],
+textarea {
+  background-color: black;
+  border-radius: 5px;
+  border: 2px solid #1762a7;
+  width: 90%;
+  margin-left: 5%;
+  height: 40px;
+  font-size: 0.9rem;
+  color: white;
+  margin-top: 1%;
+  text-align: left;
+}
+
+.form-element-kindact {
+  text-align: left;
+  width: 100%;
+  margin-top: 3%;
+}
+
+.form-text-kindact {
+  font-size: 1rem;
+  text-align: left;
+  padding-top: 7%;
+  padding-left: 5%;
+  margin-top: 2%;
+}
+
+.right-section-kindact {
+  width: 70%;
+  border: 0px solid white;
+  height: 100%;
+}
+.right-section-kindact-heading {
+  margin: 2%;
+  border-bottom: 3px solid #746767;
+  display: flex;
+  font-size: 1.2rem;
+  height: 30px;
+}
+.kindact-heading1 {
+  width: 70%;
+}
+
+.kindact-heading3 {
+  width: 30%;
+}
+
+.right-section-kindact-content {
+  height: 40px;
+  width: 96%;
+  margin-left: 2%;
+  border-bottom: 1px solid #746767;
+  margin-bottom: 1%;
+  display: flex;
+  align-items: center;
+}
+
+.kindact-heading1-content {
+  width: 70%;
+  height: 20px;
+  overflow: hidden;
+}
+
+.kindact-heading3-content {
+  width: 30%;
+  border: 0px solid white;
+}
+
+.kindact-form-img {
+  width: 25px;
+  margin-right: 10%;
+  margin-left: 20%;
+  cursor: pointer;
+}
