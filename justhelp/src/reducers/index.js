@@ -35,7 +35,10 @@ import {
   ADD_ACTS_SUCCESS,
   ADD_CONTACTS_FAILED,
   ADD_CONTACTS_START,
-  ADD_CONTACTS_SUCCESS
+  ADD_CONTACTS_SUCCESS,
+  GET_USER_FAILED,
+  GET_USER_SUCCESS,
+  GET_USER_START
 } from "../actions";
 
 const initialState = {
@@ -77,6 +80,7 @@ const reducer = (state = initialState, action) => {
         registering: false
       };
     case LOGIN_START:
+      console.log("-----------IN LOGIN START----------");
       return {
         ...state,
         error: "",
@@ -84,6 +88,10 @@ const reducer = (state = initialState, action) => {
         isLoggedIn: false
       };
     case LOGIN_SUCCESS:
+      console.log(
+        "-------------ACTION PAY LOAD FOR LOGIN SUCCESS IS " +
+          JSON.stringify(action.payload)
+      );
       return {
         ...state,
         error: "",
@@ -137,10 +145,10 @@ const reducer = (state = initialState, action) => {
         error: ""
       };
     case UPDATE_USER_SUCCESS:
-      console.log(":: UPDATE USER SUCCESS ::");
+      console.log(":: UPDATE USER SUCCESS ::" + JSON.stringify(action.payload));
       return {
         ...state,
-        user: action.payload.account,
+        user: action.payload.user,
         updatingUser: false,
         error: ""
       };
@@ -321,7 +329,28 @@ const reducer = (state = initialState, action) => {
         error: action.payload,
         isUpdatingContacts: false
       };
-
+    case GET_USER_FAILED:
+      console.log(":: GET USER FAILED ::");
+      return {
+        ...state,
+        isGettingUsers: false,
+        error: action.payload
+      };
+    case GET_USER_SUCCESS:
+      console.log(":: GET USER SUCCESS ::");
+      return {
+        ...state,
+        user: action.payload.user,
+        isGettingUser: false,
+        error: ""
+      };
+    case GET_USER_START:
+      console.log(":: GET USER START ::");
+      return {
+        ...state,
+        isGettingUser: true,
+        error: ""
+      };
     default:
       return state;
   }
