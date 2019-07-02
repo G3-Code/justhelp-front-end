@@ -19,9 +19,14 @@ class KindActsForm extends React.Component {
   componentDidMount() {
     console.log(":: IN COMPONENT DID MOUNT ::");
     const token = localStorage.getItem("token");
-    this.props.getActs(this.props.user.id, token).then(() => {
-      this.setState({ ...this.state, formActs: this.props.acts });
+    // this.props.getActs(this.props.user.id, token).then(() => {
+    //   this.setState({ ...this.state, formActs: this.props.acts });
+    // });
+    const formActs = this.props.acts.filter(act => {
+      return act.act_type !== 5;
     });
+    console.log("::::::::::::::::::::::::::::::::::" + formActs.length);
+    this.setState({ ...this.state, formActs: formActs });
   }
 
   handleChanges = e => {
@@ -242,6 +247,10 @@ class KindActsForm extends React.Component {
 const mapStateToProps = state => {
   console.log(
     ":: KIND ACTS FORM USER OBJECT IS ::" + JSON.stringify(state.user)
+  );
+
+  console.log(
+    ":: KIND ACTS FORM USER OBJECT IS ::" + JSON.stringify(state.acts)
   );
   return {
     user: state.user,
