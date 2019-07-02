@@ -29,7 +29,8 @@ class Nav extends React.Component {
               )}
 
               <div className="welcome-msg">
-                {this.props.isLoggedIn && `Welcome, ${this.props.user.first}`}
+                {this.props.isLoggedIn &&
+                  `Welcome, ${this.props.user.first_name}`}
               </div>
             </div>
             {this.props.isLoggedIn && (

@@ -8,7 +8,7 @@ import ContactForm from "./ContactsForm";
 import RegistrationForm from "./RegistrationForm";
 import PrivateRoute from "./PrivateRoute";
 import { connect } from "react-redux";
-import { getData, getContacts, getActs } from "../actions";
+import { getData, getContacts, getActs, getUser } from "../actions";
 
 import "../styles/index.css";
 
@@ -19,9 +19,11 @@ class App extends React.Component {
     if (localStorage.getItem("data")) {
       const data = JSON.parse(localStorage.getItem("data"));
       console.log(`****************************${data.contacts}`);
+      console.log(`************TOKEN****************${data.token}`);
       this.props.getData(data);
       this.props.getContacts(data.user.id, data.token);
       this.props.getActs(data.user.id, data.token);
+      this.props.getUser(data.user.id, data.token);
     }
     console.log(
       `:: APP JS - COMPONENT DID MOUNT USER OBJECT IS ${JSON.stringify(
@@ -62,5 +64,5 @@ const mapStateToProps = state => {
 };
 export default connect(
   mapStateToProps,
-  { getData, getContacts, getActs }
+  { getData, getContacts, getActs, getUser }
 )(App);

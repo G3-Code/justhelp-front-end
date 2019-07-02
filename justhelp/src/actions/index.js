@@ -11,11 +11,14 @@ export const LOGIN_FAILED = "LOGIN_FAILED";
 export const URL = "http://localhost:5000";
 
 export const login = creds => dispatch => {
-  console.log(":: IN ACTION -> LOGIN ::");
+  console.log(":: IN ACTION -> LOGIN ::" + JSON.stringify(creds));
   dispatch({ type: LOGIN_START });
   return axios
     .post(`${URL}/login`, creds)
     .then(res => {
+      console.log(
+        "-------LOGIN RESPONSE --------------" + JSON.stringify(res.data)
+      );
       dispatch({ type: LOGIN_SUCCESS, payload: res.data });
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("data", res.data);
@@ -260,6 +263,29 @@ export const updateActs = (userId, act, token) => dispatch => {
     })
     .catch(err => {
       dispatch({ type: UPDATE_ACTS_FAILED, payload: err.response });
+      alert("Something is wrong, please try again");
+    });
+};
+
+export const GET_USER_START = "GET_USER_START";
+export const GET_USER_SUCCESS = "GET_USER_SUCCESS";
+export const GET_USER_FAILED = "GET_USER_FAILED";
+
+export const getUser = (id, token) => dispatch => {
+  console.log(":: GET USER ACTION - ID IS " + id);
+  dispatch({ type: GET_USER_START });
+  return axios
+    .get(`${URL}/user/${id}`, {
+      headers: { Authorization: token }
+    })
+    .then(res => {
+      console.log(
+        ":: GET USER SUCCESS RESPONSE DATA IS :: " + JSON.stringify(res)
+      );
+      dispatch({ type: GET_USER_SUCCESS, payload: res.data });
+    })
+    .catch(err => {
+      dispatch({ type: GET_USER_FAILED, payload: err.response });
       alert("Something is wrong, please try again");
     });
 };

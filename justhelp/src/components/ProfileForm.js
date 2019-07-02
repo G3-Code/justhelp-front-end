@@ -11,11 +11,10 @@ class ProfileForm extends React.Component {
     super(props);
     this.state = {
       credentials: {
-        first: "",
-        last: "",
-        phone: "",
-        email: "",
-        password: ""
+        first_name: this.props.user.first_name,
+        last_name: this.props.user.last_name,
+        phone_number: this.props.user.phone_number,
+        email: this.props.user.email
       },
       token: ""
     };
@@ -24,9 +23,38 @@ class ProfileForm extends React.Component {
     const token = localStorage.getItem("token");
     console.log(":::: COMPONENT DID MOUNT IN PROFILE FORM:::");
     this.setState({
-      credentials: this.props.user,
+      credentials: {
+        first_name: this.props.user.first_name,
+        last_name: this.props.user.last_name,
+        phone_number: this.props.user.phone_number,
+        email: this.props.user.email,
+        id: this.props.user.id
+      },
       token: token
     });
+    console.log(
+      "::::::: PROFILE FORM ---------> " +
+        JSON.stringify(this.state.credentials)
+    );
+  }
+
+  componentWillReceiveProps() {
+    const token = localStorage.getItem("token");
+    console.log(":::: COMPONENT DID MOUNT IN PROFILE FORM:::");
+    this.setState({
+      credentials: {
+        first_name: this.props.user.first_name,
+        last_name: this.props.user.last_name,
+        phone_number: this.props.user.phone_number,
+        email: this.props.user.email,
+        id: this.props.user.id
+      },
+      token: token
+    });
+    console.log(
+      "::::::: PROFILE FORM ---------> " +
+        JSON.stringify(this.state.credentials)
+    );
   }
 
   handleChanges = e => {
@@ -36,16 +64,21 @@ class ProfileForm extends React.Component {
       ...this.state,
       credentials: {
         ...this.state.credentials,
-        [e.target.name]: e.target.value
+        [e.target.name]: e.target.value,
+        id: this.props.user.id
       }
     });
+    console.log(
+      "---------------------" + JSON.stringify(this.state.credentials)
+    );
   };
 
   updateUserInProfile = e => {
     e.preventDefault();
     console.log(
       ":: ON SUBMIT CLICKED IN PROFILE FORM ::" +
-        JSON.stringify(this.state.credentails, JSON.stringify(this.state.token))
+        JSON.stringify(this.state.credentials),
+      JSON.stringify(this.state.token)
     );
     this.props.updateUser(this.state.credentials, this.state.token).then(() => {
       this.props.history.push("/homepage");
@@ -55,7 +88,16 @@ class ProfileForm extends React.Component {
   };
 
   render() {
-    console.log(":: IN RENDER OF PROFILE FORM ::");
+    if (this.props.isGettingUser) {
+      return <div>Loading ...</div>;
+    }
+    console.log(
+      ":: IN RENDER OF PROFILE FORM ::" + JSON.stringify(this.state.credentials)
+    );
+
+    console.log(
+      ":: IN RENDER OF PROFILE FORM - PROPS::" + JSON.stringify(this.props.user)
+    );
     return (
       <div>
         <Nav isLoggedIn={this.props.isLoggedIn} />
@@ -76,9 +118,9 @@ class ProfileForm extends React.Component {
                   <input
                     className="form-input-register"
                     type="text"
-                    name="first"
+                    name="first_name"
                     placeholder="First Name"
-                    value={this.state.credentials.first}
+                    value={this.state.credentials.first_name}
                     onChange={this.handleChanges}
                   />
                 </div>
@@ -87,9 +129,9 @@ class ProfileForm extends React.Component {
                   <input
                     className="form-input-register"
                     type="text"
-                    name="last"
+                    name="last_name"
                     placeholder="Last Name"
-                    value={this.state.credentials.last}
+                    value={this.state.credentials.last_name}
                     onChange={this.handleChanges}
                   />
                 </div>
@@ -99,29 +141,18 @@ class ProfileForm extends React.Component {
                   <input
                     className="form-input-register"
                     type="text"
-                    name="phone"
+                    name="phone_number"
                     placeholder="Phone Number"
-                    value={this.state.credentials.phone}
+                    value={this.state.credentials.phone_number}
                     onChange={this.handleChanges}
                   />
                 </div>
-                <div className="form-text-register">Password</div>
-                <div className="form-element">
-                  <input
-                    className="form-input-register"
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                    value={this.state.credentials.password}
-                    onChange={this.handleChanges}
-                  />
-                  <button className="profile-btn" type="submit">
-                    Update Profile
-                  </button>
-                  <Link to="/homepage">
-                    <button className="profile-btn">Cancel</button>
-                  </Link>
-                </div>
+                <button className="profile-btn" type="submit">
+                  Update Profile
+                </button>
+                <Link to="/homepage">
+                  <button className="profile-btn">Cancel</button>
+                </Link>
               </form>
             </div>
           </section>
@@ -138,6 +169,7 @@ const mapStateToProps = state => {
     user: state.user,
     isLoggedIn: state.isLoggedIn,
     loggingIn: state.loggingIn,
+    isGettingUser: state.isGettingUser,
     error: state.error
   };
 };
