@@ -17,7 +17,10 @@ class App extends React.Component {
     console.log(":: APP JS - COMPONENT DID MOUNT");
     //const token = localStorage.getItem("token");
     if (localStorage.getItem("data")) {
-      this.props.getData(JSON.parse(localStorage.getItem("data")));
+      const data = JSON.parse(localStorage.getItem("data"));
+      console.log(`****************************${data.contacts}`);
+      this.props.getData(data);
+      this.props.getContacts(data.user.id, data.token);
     }
     console.log(
       `:: APP JS - COMPONENT DID MOUNT USER OBJECT IS ${JSON.stringify(

@@ -118,8 +118,8 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         user: action.payload.user,
-        contacts: action.payload.contacts,
-        acts: action.payload.acts,
+        //contacts: action.payload.contacts,
+        //acts: action.payload.acts,
         error: "",
         isLoggedIn: true
       };
@@ -213,7 +213,7 @@ const reducer = (state = initialState, action) => {
       console.log(":: ADD ACTS START ::");
       return {
         ...state,
-        acts: [...state.acts, action.payload],
+        acts: action.payload.acts,
         error: "",
         isAddingActs: false
       };
@@ -273,7 +273,7 @@ const reducer = (state = initialState, action) => {
     case DELETE_CONTACTS_SUCCESS:
       return {
         ...state,
-        //contacts: action.payload,
+        contacts: action.payload.contacts,
         error: "",
         isDeletingContacts: false
       };
