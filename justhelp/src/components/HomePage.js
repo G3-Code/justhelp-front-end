@@ -15,14 +15,15 @@ class HomePage extends React.Component {
   componentDidMount() {
     console.log(":: IN COMPONENT DID MOUNT ::");
     const token = localStorage.getItem("token");
-    this.props
-      .getContacts(this.props.user.id, token)
-      .then(async () => {
-        await this.props.getActs(this.props.user.id, token);
-      })
-      .then(async () => {
-        await this.handleGenerateRandom();
-      });
+    this.handleGenerateRandom();
+    // this.props
+    //   .getContacts(this.props.user.id, token)
+    //   .then(async () => {
+    //     await this.props.getActs(this.props.user.id, token);
+    //   })
+    //   .then(async () => {
+    //     await this.handleGenerateRandom();
+    //   });
   }
   // componentDidUpdate() {
   //   console.log(":: COMPONENT DID UPDATE");
@@ -39,8 +40,8 @@ class HomePage extends React.Component {
     console.log(":: ACTS ::" + JSON.stringify(this.props.acts));
     console.log(":: CONTACTS ::" + JSON.stringify(this.props.contacts));
     var randomContact = {
-      contactFirst: "For Family",
-      contactLast: "and friends"
+      contact_first_name: "For Family",
+      contact_last_name: "and friends"
     };
     if (this.props.contacts.length !== 0) {
       randomContact = this.props.contacts[
@@ -54,7 +55,9 @@ class HomePage extends React.Component {
       this.setState({
         randomGenerated: {
           act: randomAct.description,
-          contact: `${randomContact.contactFirst} ${randomContact.contactLast}`
+          contact: `${randomContact.contact_first_name} ${
+            randomContact.contact_last_name
+          }`
         }
       });
     }

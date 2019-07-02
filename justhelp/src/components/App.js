@@ -19,6 +19,11 @@ class App extends React.Component {
     if (localStorage.getItem("data")) {
       this.props.getData(JSON.parse(localStorage.getItem("data")));
     }
+    console.log(
+      `:: APP JS - COMPONENT DID MOUNT USER OBJECT IS ${JSON.stringify(
+        this.props.user
+      )}`
+    );
   }
   render() {
     return (
@@ -34,7 +39,20 @@ class App extends React.Component {
   }
 }
 
+const mapStateToProps = state => {
+  console.log(
+    ":: CONTACTS FORM USER OBJECT IS ::" + JSON.stringify(state.user)
+  );
+  console.log(
+    ":: CONTACTS FORM CONTACTS OBJECT IS ::" + JSON.stringify(state.contacts)
+  );
+  return {
+    user: state.user,
+    error: state.error,
+    contacts: state.contacts
+  };
+};
 export default connect(
-  null,
+  mapStateToProps,
   { getData, getContacts }
 )(App);
