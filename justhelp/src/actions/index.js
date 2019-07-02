@@ -252,7 +252,7 @@ export const updateActs = (userId, act, token) => dispatch => {
   //const user = localStorage.getItem("data");
   dispatch({ type: UPDATE_ACTS_START });
   return axios
-    .put(`${URL}/kindAct/${act.actId}`, act, {
+    .put(`${URL}/kindAct/${act.id}`, act, {
       headers: { Authorization: token }
     })
     .then(res => {

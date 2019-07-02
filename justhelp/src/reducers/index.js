@@ -293,6 +293,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         error: "",
+        acts: action.payload.acts,
         isUpdatingActs: false
       };
     case UPDATE_ACTS_FAILED:
