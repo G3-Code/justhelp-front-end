@@ -53,6 +53,9 @@ class KindActsForm extends React.Component {
       this.props.addActs(this.state.newAct, token);
     }
     if (e.target.name === "update") {
+      console.log(
+        "********************************" + JSON.stringify(this.state.newAct)
+      );
       // code for update
       this.props
         .updateActs(this.props.user.id, this.state.newAct, token)
@@ -77,7 +80,7 @@ class KindActsForm extends React.Component {
       ...this.state,
       newAct: {
         description: updateAct[0].description,
-        act_type: "",
+        act_type: updateAct[0].act_type,
         id: updateAct[0].id,
         user_id: this.props.user.id
       }
