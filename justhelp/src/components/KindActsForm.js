@@ -11,8 +11,7 @@ class KindActsForm extends React.Component {
   state = {
     newAct: {
       description: "",
-      related: "Family",
-      actId: null,
+      act_type: "",
       user_id: this.props.user.id
     }
   };
@@ -20,9 +19,14 @@ class KindActsForm extends React.Component {
   componentDidMount() {
     console.log(":: IN COMPONENT DID MOUNT ::");
     const token = localStorage.getItem("token");
-    this.props.getActs(this.props.user.id, token).then(() => {
-      this.setState({ ...this.state, formActs: this.props.acts });
+    // this.props.getActs(this.props.user.id, token).then(() => {
+    //   this.setState({ ...this.state, formActs: this.props.acts });
+    // });
+    const formActs = this.props.acts.filter(act => {
+      return act.act_type !== 5;
     });
+    console.log("::::::::::::::::::::::::::::::::::" + formActs.length);
+    this.setState({ ...this.state, formActs: formActs });
   }
 
   handleChanges = e => {
@@ -30,15 +34,22 @@ class KindActsForm extends React.Component {
     this.setState({
       newAct: {
         ...this.state.newAct,
-        [e.target.name]: e.target.value
+        [e.target.name]: e.target.value,
+        user_id: this.props.user.id
       }
     });
+    console.log(
+      `:: HANDLE CHANGES ^^^^^^^^^^^^^^^^^ ${JSON.stringify(this.state.newAct)}`
+    );
   };
   onSubmit = e => {
     e.preventDefault();
     console.log(":: ON SUBMIT CLICKED IN KIND ACTS ::");
     const token = localStorage.getItem("token");
     if (e.target.name === "add") {
+      console.log(
+        "********************************" + JSON.stringify(this.state.newAct)
+      );
       this.props.addActs(this.state.newAct, token);
     }
     if (e.target.name === "update") {
@@ -50,8 +61,7 @@ class KindActsForm extends React.Component {
     this.setState({
       newAct: {
         description: "",
-        related: "famly",
-        actId: null,
+        act_type: "",
         user_id: this.props.user.id
       }
     });
@@ -67,8 +77,8 @@ class KindActsForm extends React.Component {
       ...this.state,
       newAct: {
         description: updateAct[0].description,
-        related: "Friend",
-        actId: updateAct[0].id,
+        act_type: "",
+        id: updateAct[0].id,
         user_id: this.props.user.id
       }
     });
@@ -93,8 +103,8 @@ class KindActsForm extends React.Component {
     this.setState({
       newAct: {
         description: "",
-        related: "famly",
-        actId: null
+        act_type: "",
+        user_id: this.props.user.id
       }
     });
   };
@@ -155,8 +165,19 @@ class KindActsForm extends React.Component {
                       onChange={this.handleChanges}
                     />
                   </div>
+                  <div className="form-text-kindact">Act Associated with</div>
+                  <div className="form-element-kindact">
+                    <input
+                      className="form-input-kindact"
+                      type="text"
+                      name="act_type"
+                      placeholder="Family, friends, pet, community"
+                      value={this.state.newAct.act_type}
+                      onChange={this.handleChanges}
+                    />
+                  </div>
 
-                  {!this.state.newAct.actId && (
+                  {!this.state.newAct.id && (
                     <button
                       className="contact-btn"
                       name="add"
@@ -165,7 +186,7 @@ class KindActsForm extends React.Component {
                       Add Kind Act
                     </button>
                   )}
-                  {this.state.newAct.actId && (
+                  {this.state.newAct.id && (
                     <button
                       className="contact-btn-update"
                       name="update"
@@ -226,6 +247,10 @@ class KindActsForm extends React.Component {
 const mapStateToProps = state => {
   console.log(
     ":: KIND ACTS FORM USER OBJECT IS ::" + JSON.stringify(state.user)
+  );
+
+  console.log(
+    ":: KIND ACTS FORM USER OBJECT IS ::" + JSON.stringify(state.acts)
   );
   return {
     user: state.user,

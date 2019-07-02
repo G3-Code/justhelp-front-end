@@ -68,6 +68,7 @@ export const FETCHING_DATA = "FETCHING_DATA";
 export const FETCHING_DATA_SUCCESS = "FETCHING_DATA_SUCCESS";
 
 export const getData = data => dispatch => {
+  console.log(`::::::::DATA IN FETCH DATA IS ${JSON.stringify(data)}`);
   dispatch({ type: FETCHING_DATA, payload: data });
   dispatch({ type: FETCHING_DATA_SUCCESS });
 };
@@ -170,7 +171,7 @@ export const updateContacts = (userId, contact, token) => dispatch => {
   //const user = localStorage.getItem("data");
   dispatch({ type: UPDATE_CONTACTS_START });
   return axios
-    .put(`${URL}/contact/${contact.contactId}`, contact, {
+    .put(`${URL}/contact/${contact.id}`, contact, {
       headers: { Authorization: token }
     })
     .then(res => {

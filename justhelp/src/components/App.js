@@ -8,7 +8,7 @@ import ContactForm from "./ContactsForm";
 import RegistrationForm from "./RegistrationForm";
 import PrivateRoute from "./PrivateRoute";
 import { connect } from "react-redux";
-import { getData, getContacts } from "../actions";
+import { getData, getContacts, getActs } from "../actions";
 
 import "../styles/index.css";
 
@@ -17,8 +17,17 @@ class App extends React.Component {
     console.log(":: APP JS - COMPONENT DID MOUNT");
     //const token = localStorage.getItem("token");
     if (localStorage.getItem("data")) {
-      this.props.getData(JSON.parse(localStorage.getItem("data")));
+      const data = JSON.parse(localStorage.getItem("data"));
+      console.log(`****************************${data.contacts}`);
+      this.props.getData(data);
+      this.props.getContacts(data.user.id, data.token);
+      this.props.getActs(data.user.id, data.token);
     }
+    console.log(
+      `:: APP JS - COMPONENT DID MOUNT USER OBJECT IS ${JSON.stringify(
+        this.props.user
+      )}`
+    );
   }
   render() {
     return (
@@ -34,7 +43,24 @@ class App extends React.Component {
   }
 }
 
+const mapStateToProps = state => {
+  console.log(
+    ":: CONTACTS FORM USER OBJECT IS ::" + JSON.stringify(state.user)
+  );
+  console.log(
+    ":: CONTACTS FORM CONTACTS OBJECT IS ::" + JSON.stringify(state.contacts)
+  );
+  console.log(
+    ":: CONTACTS FORM CONTACTS OBJECT IS ::" + JSON.stringify(state.acts)
+  );
+  return {
+    user: state.user,
+    error: state.error,
+    contacts: state.contacts,
+    acts: state.acts
+  };
+};
 export default connect(
-  null,
-  { getData, getContacts }
+  mapStateToProps,
+  { getData, getContacts, getActs }
 )(App);

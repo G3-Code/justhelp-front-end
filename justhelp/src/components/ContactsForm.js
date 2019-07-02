@@ -19,10 +19,10 @@ class ContactsForm extends React.Component {
 
     this.state = {
       newContact: {
-        contactFirst: "",
-        contactLast: "",
-        contactPhone: "",
-        relation: "map",
+        contact_first_name: "",
+        contact_last_name: "",
+        contact_type: "",
+        contact_nick_name: "",
         user_id: this.props.user.id
       },
       isLoading: "initial",
@@ -31,11 +31,18 @@ class ContactsForm extends React.Component {
   }
 
   componentDidMount() {
-    console.log(":: IN COMPONENT DID MOUNT ::");
+    console.log(
+      ":: CONTACTS FORMS :: IN COMPONENT DID MOUNT ::***1" + this.props.user.id
+    );
+    console.log(
+      ":: CONTACTS FORMS :: IN COMPONENT DID MOUNT ::***2" +
+        JSON.stringify(this.props.contacts)
+    );
     const token = localStorage.getItem("token");
-    this.props.getContacts(this.props.user.id, token).then(() => {
-      this.setState({ ...this.state, formContacts: this.props.contacts });
-    });
+    // this.props.getContacts(this.props.user.id, token).then(() => {
+    //   this.setState({ ...this.state, formContacts: this.props.contacts });
+    // });
+    this.setState({ ...this.state, formContacts: this.props.contacts });
   }
 
   componentDidUpdate(prevProps) {
@@ -75,18 +82,23 @@ class ContactsForm extends React.Component {
       this.props.addContacts(this.state.newContact, token);
     }
     if (e.target.name === "update") {
+      console.log(`>>>>>>>>>>>>>>> ${this.props.user.id}`);
+      console.log(`>>>>>>>>>>>>>>> ${JSON.stringify(this.state.newContact)}`);
       // code for update
-      this.props
-        .updateContacts(this.props.user.id, this.state.newContact, token)
-        .then(() => this.props.getContacts(this.props.user.id, token));
+      this.props.updateContacts(
+        this.props.user.id,
+        this.state.newContact,
+        token
+      );
+      // .then(() => this.props.getContacts(this.props.user.id, token));
     }
 
     this.setState({
       newContact: {
-        contactFirst: "",
-        contactLast: "",
-        contactPhone: "",
-        relation: "map",
+        contact_first_name: "",
+        contact_last_name: "",
+        contact_type: "",
+        contact_nick_name: "",
         contactId: null,
         user_id: this.props.user.id
       }
@@ -94,20 +106,21 @@ class ContactsForm extends React.Component {
   };
 
   handleEditButton = id => {
-    console.log("CALLING HANDLE EDIT BUTTON");
+    console.log("CALLING HANDLE EDIT BUTTON" + id);
     let updateContact = this.props.contacts.filter(contact => {
+      console.log(`>>>>>>>>>>>>>> VALUE OF ID IS ${id}`);
       return contact.id === id;
     });
     console.log(":: UPDATE CONTACT ::" + JSON.stringify(updateContact));
     this.setState({
       ...this.state,
       newContact: {
-        contactFirst: updateContact[0].contactFirst,
-        contactLast: updateContact[0].contactLast,
-        contactPhone: updateContact[0].contactPhone,
-        relation: "map",
+        contact_first_name: updateContact[0].contact_first_name,
+        contact_last_name: updateContact[0].contact_last_name,
+        contact_type: updateContact[0].contact_type,
+        contact_nick_name: updateContact[0].contact_nick_name,
         user_id: this.props.user.id,
-        contactId: updateContact[0].id
+        id: updateContact[0].id
       }
     });
   };
@@ -131,11 +144,11 @@ class ContactsForm extends React.Component {
     e.preventDefault();
     this.setState({
       newContact: {
-        contactFirst: "",
-        contactLast: "",
-        contactPhone: "",
-        relation: "map",
-        contactId: null,
+        contact_first_name: "",
+        contact_last_name: "",
+        contact_type: "",
+        contact_nick_name: "",
+        id: null,
         user_id: this.props.user.id
       }
     });
@@ -191,9 +204,9 @@ class ContactsForm extends React.Component {
                     <input
                       className="form-input-contact"
                       type="text"
-                      name="contactFirst"
+                      name="contact_first_name"
                       placeholder="First Name"
-                      value={this.state.newContact.contactFirst}
+                      value={this.state.newContact.contact_first_name}
                       onChange={this.handleChanges}
                     />
                   </div>
@@ -202,24 +215,35 @@ class ContactsForm extends React.Component {
                     <input
                       className="form-input-contact"
                       type="text"
-                      name="contactLast"
+                      name="contact_last_name"
                       placeholder="Last Name"
-                      value={this.state.newContact.contactLast}
+                      value={this.state.newContact.contact_last_name}
                       onChange={this.handleChanges}
                     />
                   </div>
-                  <div className="form-text-contact">Phone Number</div>
+                  <div className="form-text-contact">Contact Type</div>
                   <div className="form-element-contact">
                     <input
                       className="form-input-contact"
                       type="text"
-                      name="contactPhone"
-                      placeholder="Phone Number"
-                      value={this.state.newContact.contactPhone}
+                      name="contact_type"
+                      placeholder="Friends, Family, Pet, Community"
+                      value={this.state.newContact.contact_type}
                       onChange={this.handleChanges}
                     />
                   </div>
-                  {!this.state.newContact.contactId && (
+                  <div className="form-text-contact">Contact Nick Name</div>
+                  <div className="form-element-contact">
+                    <input
+                      className="form-input-contact"
+                      type="text"
+                      name="contact_nick_name"
+                      placeholder="Nick name"
+                      value={this.state.newContact.contact_nick_name}
+                      onChange={this.handleChanges}
+                    />
+                  </div>
+                  {!this.state.newContact.id && (
                     <button
                       className="contact-btn"
                       name="add"
@@ -228,7 +252,7 @@ class ContactsForm extends React.Component {
                       Add Contact
                     </button>
                   )}
-                  {this.state.newContact.contactId && (
+                  {this.state.newContact.id && (
                     <button
                       className="contact-btn-update"
                       name="update"
@@ -252,25 +276,24 @@ class ContactsForm extends React.Component {
               <div className="right-section-contact-heading">
                 <div className="contact-heading1a">First Name</div>
                 <div className="contact-heading1b">Last Name</div>
-                <div className="contact-heading2">Phone Number</div>
+                <div className="contact-heading2">Nick name</div>
                 <div className="contact-heading3" />
               </div>
 
               {isRender &&
-                this.state.formContacts.map(contact => (
+                this.state.formContacts.map((contact, index) => (
                   <div
                     key={contact.id}
                     className="right-section-contact-content"
                   >
                     <div className="contact-heading1a-content">
-                      {contact.contactFirst}
+                      {contact.contact_first_name}
                     </div>
                     <div className="contact-heading1b-content">
-                      {" "}
-                      {contact.contactLast}
+                      {contact.contact_last_name}
                     </div>
                     <div className="contact-heading2-content">
-                      {contact.contactPhone}
+                      {contact.contact_nick_name}
                     </div>
                     <div className="contact-heading3-content">
                       <img

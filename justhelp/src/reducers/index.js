@@ -89,6 +89,8 @@ const reducer = (state = initialState, action) => {
         error: "",
         loggingIn: false,
         user: action.payload.user,
+        contacts: action.payload.contacts,
+        acts: action.payload.acts,
         isLoggedIn: true
       };
     case LOGIN_FAILED:
@@ -116,6 +118,8 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         user: action.payload.user,
+        //contacts: action.payload.contacts,
+        //acts: action.payload.acts,
         error: "",
         isLoggedIn: true
       };
@@ -209,7 +213,7 @@ const reducer = (state = initialState, action) => {
       console.log(":: ADD ACTS START ::");
       return {
         ...state,
-        acts: [...state.acts, action.payload],
+        acts: action.payload.acts,
         error: "",
         isAddingActs: false
       };
@@ -237,7 +241,8 @@ const reducer = (state = initialState, action) => {
       );
       return {
         ...state,
-        contacts: [...state.contacts, action.payload],
+        //contacts: [...state.contacts, action.payload],
+        contacts: action.payload.contacts,
         error: "",
         isAddingContacts: false
       };
@@ -268,7 +273,7 @@ const reducer = (state = initialState, action) => {
     case DELETE_CONTACTS_SUCCESS:
       return {
         ...state,
-        //contacts: action.payload,
+        contacts: action.payload.contacts,
         error: "",
         isDeletingContacts: false
       };
@@ -305,6 +310,7 @@ const reducer = (state = initialState, action) => {
     case UPDATE_CONTACTS_SUCCESS:
       return {
         ...state,
+        contacts: action.payload.contacts,
         error: "",
         isUpdatingContacts: false
       };
