@@ -12,9 +12,9 @@ import { register } from "../actions";
 class RegistrationForm extends React.Component {
   state = {
     credentials: {
-      first: "",
-      last: "",
-      phone: "",
+      first_name: "",
+      last_name: "",
+      phone_number: "",
       email: "",
       password: ""
     }
@@ -31,7 +31,11 @@ class RegistrationForm extends React.Component {
 
   onSubmit = e => {
     e.preventDefault();
+    console.log(`============> BUTTON CLICKED `);
     this.props.register(this.state.credentials).then(() => {
+      console.log(
+        `============> CRED VALUES ${JSON.stringify(this.state.credentials)}`
+      );
       this.props.history.push({
         pathname: "/login",
         state: {
@@ -73,9 +77,9 @@ class RegistrationForm extends React.Component {
                     <input
                       className="form-input-register"
                       type="text"
-                      name="first"
+                      name="first_name"
                       placeholder="First Name"
-                      value={this.state.credentials.first}
+                      value={this.state.credentials.first_name}
                       onChange={this.handleChanges}
                     />
                   </div>
@@ -85,9 +89,9 @@ class RegistrationForm extends React.Component {
                     <input
                       className="form-input-register"
                       type="text"
-                      name="last"
+                      name="last_name"
                       placeholder="Last Name"
-                      value={this.state.credentials.last}
+                      value={this.state.credentials.last_name}
                       onChange={this.handleChanges}
                     />
                   </div>
@@ -107,9 +111,9 @@ class RegistrationForm extends React.Component {
                     <input
                       className="form-input-register"
                       type="text"
-                      name="phone"
+                      name="phone_number"
                       placeholder="Phone Number"
-                      value={this.state.credentials.phone}
+                      value={this.state.credentials.phone_number}
                       onChange={this.handleChanges}
                     />
                   </div>

@@ -4,13 +4,17 @@ export const LOGIN_START = "LOGIN_START";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAILED = "LOGIN_FAILED";
 
-export const URL = "https://random-acts-generator.herokuapp.com";
+//export const URL = "https://random-acts-generator.herokuapp.com";
+
+//export const URL = "https://justhelp.herokuapp.com/";
+
+export const URL = "http://localhost:5000";
 
 export const login = creds => dispatch => {
   console.log(":: IN ACTION -> LOGIN ::");
   dispatch({ type: LOGIN_START });
   return axios
-    .post(`${URL}/api/auth/login`, creds)
+    .post(`${URL}/login`, creds)
     .then(res => {
       dispatch({ type: LOGIN_SUCCESS, payload: res.data });
       localStorage.setItem("token", res.data.token);
@@ -33,8 +37,11 @@ export const register = creds => dispatch => {
   console.log(":: IN ACTION -> REGISTER ::" + JSON.stringify(creds));
   dispatch({ type: REGISTER_START });
   return axios
-    .post(`${URL}/api/auth/register/`, creds)
+    .post(`${URL}/register`, creds)
     .then(res => {
+      console.log(
+        `====================RESPONSE IS >> ${JSON.stringify(res.data)}`
+      );
       localStorage.setItem("token", res.data.token);
       dispatch({ type: REGISTER_SUCCESS });
       console.log("REGISTER RESPONSE IS ----->" + JSON.stringify(res));
@@ -76,7 +83,7 @@ export const updateUser = (newUser, token) => dispatch => {
   );
   dispatch({ type: UPDATE_USER_START });
   return axios
-    .put(`${URL}/api/users/${newUser.id}`, newUser, {
+    .put(`${URL}/user/${newUser.id}`, newUser, {
       headers: { Authorization: token }
     })
     .then(res => {
@@ -99,7 +106,7 @@ export const getContacts = (id, token) => dispatch => {
   console.log(":: GET CONTACTS ACTION - ID IS " + id);
   dispatch({ type: GET_CONTACTS_START });
   return axios
-    .get(`${URL}/api/users/${id}/contacts`, {
+    .get(`${URL}/contact/user/${id}`, {
       headers: { Authorization: token }
     })
     .then(res => {
@@ -121,7 +128,7 @@ export const ADD_CONTACTS_FAILED = "ADD_CONTACTS_FAILED";
 export const addContacts = (newContact, token) => dispatch => {
   dispatch({ type: ADD_CONTACTS_START });
   return axios
-    .post(`${URL}/api/contacts`, newContact, {
+    .post(`${URL}/contact`, newContact, {
       headers: { Authorization: token }
     })
     .then(res => {
@@ -143,7 +150,7 @@ export const DELETE_CONTACTS_FAILED = "DELETE_CONTACTS_FAILED";
 export const deleteContacts = (contactId, token) => dispatch => {
   dispatch({ type: DELETE_CONTACTS_START });
   return axios
-    .delete(`${URL}/api/contacts/${contactId}`, {
+    .delete(`${URL}/contact/${contactId}`, {
       headers: { Authorization: token }
     })
     .then(res => {
@@ -163,7 +170,7 @@ export const updateContacts = (userId, contact, token) => dispatch => {
   //const user = localStorage.getItem("data");
   dispatch({ type: UPDATE_CONTACTS_START });
   return axios
-    .put(`${URL}/api/contacts/${contact.contactId}`, contact, {
+    .put(`${URL}/contact/${contact.contactId}`, contact, {
       headers: { Authorization: token }
     })
     .then(res => {
@@ -183,10 +190,13 @@ export const GET_ACTS_FAILED = "GET_ACTS_FAILED";
 export const getActs = (id, token) => dispatch => {
   dispatch({ type: GET_ACTS_START });
   return axios
-    .get(`${URL}/api/users/${id}/acts`, {
+    .get(`${URL}/kindAct/user/${id}`, {
       headers: { Authorization: token }
     })
     .then(res => {
+      console.log(
+        `:: GET ACTS SUCCESS RESPONSE IS :: ${JSON.stringify(res.data)}`
+      );
       dispatch({ type: GET_ACTS_SUCCESS, payload: res.data });
     })
     .catch(err => {
@@ -202,7 +212,7 @@ export const ADD_ACTS_FAILED = "ADD_ACTS_FAILED";
 export const addActs = (newAct, token) => dispatch => {
   dispatch({ type: ADD_ACTS_START });
   return axios
-    .post(`${URL}/api/acts/`, newAct, {
+    .post(`${URL}/kindAct/`, newAct, {
       headers: { Authorization: token }
     })
     .then(res => {
@@ -221,7 +231,7 @@ export const DELETE_ACTS_FAILED = "DELETE_ACTS_FAILED";
 export const deleteActs = (actId, token) => dispatch => {
   dispatch({ type: DELETE_ACTS_START });
   return axios
-    .delete(`${URL}/api/acts/${actId}`, {
+    .delete(`${URL}/kindAct/${actId}`, {
       headers: { Authorization: token }
     })
     .then(res => {
@@ -241,7 +251,7 @@ export const updateActs = (userId, act, token) => dispatch => {
   //const user = localStorage.getItem("data");
   dispatch({ type: UPDATE_ACTS_START });
   return axios
-    .put(`${URL}/api/acts/${act.actId}`, act, {
+    .put(`${URL}/kindAct/${act.actId}`, act, {
       headers: { Authorization: token }
     })
     .then(res => {

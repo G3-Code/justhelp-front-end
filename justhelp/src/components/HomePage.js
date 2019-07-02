@@ -38,9 +38,15 @@ class HomePage extends React.Component {
     console.log(":: HANDLE GENERATE RANDOM");
     console.log(":: ACTS ::" + JSON.stringify(this.props.acts));
     console.log(":: CONTACTS ::" + JSON.stringify(this.props.contacts));
-    var randomContact = this.props.contacts[
-      Math.floor(Math.random() * this.props.contacts.length)
-    ];
+    var randomContact = {
+      contactFirst: "For Family",
+      contactLast: "and friends"
+    };
+    if (this.props.contacts.length !== 0) {
+      randomContact = this.props.contacts[
+        Math.floor(Math.random() * this.props.contacts.length)
+      ];
+    }
     var randomAct = this.props.acts[
       Math.floor(Math.random() * this.props.acts.length)
     ];
