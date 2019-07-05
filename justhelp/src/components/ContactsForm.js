@@ -99,7 +99,6 @@ class ContactsForm extends React.Component {
         contact_last_name: "",
         contact_type: "",
         contact_nick_name: "",
-        contactId: null,
         user_id: this.props.user.id
       }
     });
