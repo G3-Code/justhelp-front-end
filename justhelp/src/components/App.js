@@ -14,19 +14,19 @@ import "../styles/index.css";
 
 class App extends React.Component {
   componentDidMount() {
-    console.log(":: APP JS - COMPONENT DID MOUNT");
+    console.log(":: APP JS - COMPONENT DID MOUNT ::");
     //const token = localStorage.getItem("token");
     if (localStorage.getItem("data")) {
       const data = JSON.parse(localStorage.getItem("data"));
-      console.log(`****************************${data.contacts}`);
-      console.log(`************TOKEN****************${data.token}`);
+      console.log(`:: GET CONTACTS FROM DATA :: ${data.contacts}`);
+      console.log(`:: GET TOKEN FROM DATA :: ${data.token}`);
       this.props.getData(data);
       this.props.getContacts(data.user.id, data.token);
       this.props.getActs(data.user.id, data.token);
       this.props.getUser(data.user.id, data.token);
     }
     console.log(
-      `:: APP JS - COMPONENT DID MOUNT USER OBJECT IS ${JSON.stringify(
+      `:: APP JS - COMPONENT DID MOUNT USER OBJECT ::  ${JSON.stringify(
         this.props.user
       )}`
     );
