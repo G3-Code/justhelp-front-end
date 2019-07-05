@@ -6,9 +6,9 @@ export const LOGIN_FAILED = "LOGIN_FAILED";
 
 //export const URL = "https://random-acts-generator.herokuapp.com";
 
-//export const URL = "https://justhelp.herokuapp.com/";
+export const URL = "https://justhelp.herokuapp.com/";
 
-export const URL = "http://localhost:5000";
+//export const URL = "http://localhost:5000";
 
 export const login = creds => dispatch => {
   console.log(":: IN ACTION -> LOGIN ::" + JSON.stringify(creds));
