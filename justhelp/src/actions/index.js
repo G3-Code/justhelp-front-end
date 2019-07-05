@@ -16,15 +16,12 @@ export const login = creds => dispatch => {
   return axios
     .post(`${URL}/login`, creds)
     .then(res => {
-      console.log(
-        "-------LOGIN RESPONSE --------------" + JSON.stringify(res.data)
-      );
       dispatch({ type: LOGIN_SUCCESS, payload: res.data });
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("data", res.data);
       const saved = JSON.stringify(res.data);
       localStorage.setItem("data", saved);
-      console.log("LOGIN RESPONSE IS ----------->" + JSON.stringify(res));
+      console.log(":: LOGIN RESPONSE IS ::" + JSON.stringify(res));
     })
     .catch(err => {
       dispatch({ type: LOGIN_FAILED, payload: err });
@@ -42,12 +39,10 @@ export const register = creds => dispatch => {
   return axios
     .post(`${URL}/register`, creds)
     .then(res => {
-      console.log(
-        `====================RESPONSE IS >> ${JSON.stringify(res.data)}`
-      );
+      console.log(`:: REGISTER :: RESPONSE DATA:: ${JSON.stringify(res.data)}`);
       localStorage.setItem("token", res.data.token);
       dispatch({ type: REGISTER_SUCCESS });
-      console.log("REGISTER RESPONSE IS ----->" + JSON.stringify(res));
+      console.log(":: REGISTER :: RESPONSE ::" + JSON.stringify(res));
     })
     .catch(err => {
       dispatch({ type: REGISTER_FAILED, payload: err });
@@ -71,7 +66,7 @@ export const FETCHING_DATA = "FETCHING_DATA";
 export const FETCHING_DATA_SUCCESS = "FETCHING_DATA_SUCCESS";
 
 export const getData = data => dispatch => {
-  console.log(`::::::::DATA IN FETCH DATA IS ${JSON.stringify(data)}`);
+  console.log(`:: DATA IN FETCH DATA IS :: ${JSON.stringify(data)}`);
   dispatch({ type: FETCHING_DATA, payload: data });
   dispatch({ type: FETCHING_DATA_SUCCESS });
 };
