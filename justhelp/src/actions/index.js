@@ -6,7 +6,7 @@ export const LOGIN_FAILED = "LOGIN_FAILED";
 
 //export const URL = "https://random-acts-generator.herokuapp.com";
 
-export const URL = "https://justhelp.herokuapp.com/";
+export const URL = "https://justhelp.herokuapp.com";
 
 //export const URL = "http://localhost:5000";
 
